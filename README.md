@@ -1,2 +1,2 @@
-# perfit
+# profit
 AI stylist 
