@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI-powered fashion recommendations and styling for your unique style">
+    <title>ProFit | Your Personal Fashion Assistant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #8a2be2;
+            --primary-light: #9d4edd;
+            --secondary: #ff6b6b;
+            --dark: #1a1a2e;
+            --light: #ffffff;
+            --gray: #f8f9fa;
+            --text: #333;
+            --transition: all 0.3s ease;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            overflow-x: hidden;
+            background-color: var(--light);
+            scroll-behavior: smooth;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        ul {
+            list-style: none;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* Header & Navigation */
+        .header {
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        .header.scrolled {
+            padding: 10px 0;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: var(--primary);
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        .nav-links a {
+            font-weight: 500;
+            position: relative;
+            padding: 5px 2px;
+            transition: var(--transition);
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 100px 0 50px;
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.05) 0%, rgba(157, 78, 221, 0.1) 100%);
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/api/placeholder/1600/900') center/cover no-repeat;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        .hero-video {
+            position: static;
+            top: 10;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -2;
+        }
+        .hero-content {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+        }
+        .hero-text {
+            flex: 1;
+            max-width: 600px;
+        }
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--dark);
+            position: relative;
+        }
+        .hero-text h1 span {
+            color: var(--primary);
+            position: relative;
+            z-index: 1;
+        }
+        .hero-text h1 span::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 30%;
+            bottom: 5px;
+            left: 0;
+            background-color: rgba(157, 78, 221, 0.2);
+            z-index: -1;
+        }
+        .hero-text p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: #555;
+        }
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+        .hero-image img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .btn {
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+        }
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.4);
+        }
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        .btn-secondary:hover {
+            background: rgba(138, 43, 226, 0.1);
+            transform: translateY(-3px);
+        }
+        /* Features Section */
+        
+        /* About Section */
+        
+        /* Contact Section */
+        
+        /* Footer */
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-content, .about-content, .contact-content {
+                flex-direction: column;
+            }
+            .hero-image, .about-image {
+                order: -1;
+                margin-bottom: 30px;
+            }
+            .container {
+                width: 95%;
+            }
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+        }
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                transform: translateY(-150%);
+                transition: var(--transition);
+                z-index: 999;
+            }
+            .nav-links.active {
+                transform: translateY(0);
+            }
+            .feature-grid, .about-stats {
+                grid-template-columns: 1fr;
+            }
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            .section-header h2, .about-text h2, .contact-info h2 {
+                font-size: 2rem;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-tshirt"></i> ProFit
+                </a>
+                <ul class="nav-links">
+                    <li><a href="./home.html">Home</a></li>
+                    <li><a href="./feature.html">Features</a></li>
+                    <li><a href="./aboutus.html">About Us</a></li>
+                    <li><a href="./contactus.html">Contact</a></li>
+                    <li><a href="./signup.html" id="signupBtn">Sign Up</a></li>
+                </ul>
+                <button class="mobile-menu-btn" aria-label="Toggle mobile menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+    <section id="home" class="hero">
+        <video autoplay muted loop class="hero-video">
+            <source src="https://media-hosting.imagekit.io//fb79a98cedc5428a/final%20dideo.mp4?Expires=1836321924&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=TFhDv0YOEdifiFj1QEMZj7uDoUp53G-j3gNyLJioinWB0aQpA7UtSwqm6abthBTPSguvB5izVPVjNaepbjzbQEPF1Yp3s-~QOrqNdpmu4K-MUDQ-G4jJ-ONtXtuOkv1JH4Tm0Wx~uXs9AX6~7qFo2~DRPxLOpPydZEbbD9oB2xvG1cocyVhgFsx6IBs8WqTolJYihDtX8vl40s8D6lylgTprlsXJDxVtCGvW9fKyFVQH8d9IV-rXtsMl3VsQB4bAoB2kYqyFiOUYPZK4KUgMjJefUe68smrkqGY48D5l8MPY9yPT5MwD-DPbFEKUeiZ6G5LIYqQhvZYQWo9bac3T-A__" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Your <span>Personal AI</span> Fashion Stylist</h1>
+                    <p>Experience the future of fashion with our AI-powered platform. Get personalized outfit recommendations, virtual try-ons, and style advice tailored to your unique preferences.</p>
+                    <div class="cta-buttons">
+                        <a href="./feature.html" class="btn btn-primary">
+                            <i class="fas fa-magic"></i> Try It Now
+                        </a>
+                        <a href="./aboutus.html" class="btn btn-secondary">
+                            <i class="fas fa-info-circle"></i> Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+   
+    
+    
+    
+   
+    
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+        const navLinks = document.querySelector(".nav-links");
+        mobileMenuBtn.addEventListener("click", () => {
+            navLinks.classList.toggle("active");
+        });
+
+        // Signup popup functionality
+        const signupBtn = document.getElementById('signupBtn');
+        const signupPopup = document.getElementById('signupPopup');
+        const closeBtn = signupPopup.querySelector('.close-btn');
+        const signupForm = document.getElementById('signupForm');
+
+        signupBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            signupPopup.style.display = 'block';
+        });
+
+        closeBtn.addEventListener('click', () => {
+            signupPopup.style.display = 'none';
+        });
+
+        // Close popup when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === signupPopup) {
+                signupPopup.style.display = 'none';
+            }
+        });
+
+        // Form submission (basic example)
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Add your form submission logic here
+            alert('Signup submitted! (This is a demo - add your actual signup logic)');
+            signupPopup.style.display = 'none';
+            signupForm.reset();
+        });
+        function loadPage(page) {
+    fetch(`pages/${page}.html`)  // Fetch the requested page from "pages" folder
+        .then(response => response.text())  // Convert response to text (HTML)
+        .then(data => {
+            document.getElementById("content").innerHTML = data;  // Load into content div
+        })
+        .catch(error => console.error("Error loading the page:", error));
+}
+
+// Load "about.html" by default when the website opens
+loadPage('about');
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProFit</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-tshirt"></i> ProFit
+                </a>
+                <ul class="nav-links">
+                    <li><a href="./home.html">Home</a></li>
+                    <li><a href="./feature.html">Features</a></li>
+                    <li><a href="./aboutus.html">About Us</a></li>
+                    <li><a href="./contactus.html">Contact</a></li>
+                    <li><a href="./signup.html" id="signupBtn">Sign Up</a></li>
+                </ul>
+                <button class="mobile-menu-btn" aria-label="Toggle mobile menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+    
+    <video autoplay loop muted playsinline class="background-video">
+        <source src="video.mp4" type="video/mp4">
+    </video>
+    <div class="box">
+        <div class="signin-box">
+            <div class="id">
+                <img src="https://pluspng.com/img-png/png-user-icon-circled-user-icon-2240.png" alt="User Icon">
+                <label for="username">Log-in</label>
+                <input type="text" id="username" name="username">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password">
+                <div class="rem">
+                    <input type="checkbox" id="subscribe" name="subscribe" value="yes">
+                    <label for="subscribe">Remember me</label>
+                </div>
+                <div class="log">
+                    <button>Login</button>
+                    <a href="#">Forgot password?</a>
+                </div>
+                <p>Don't have an account? <br><a href="#">Create an account</a></p>
+            </div>
+        </div>
+    </div>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        .background-video {
+            position: absolute;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            height: calc(100% - 60px);
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .box {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+
+        .signin-box {
+            background-color: #9d00ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            padding: 15px;
+            position: absolute;
+        }
+
+        .id {
+            background-color: azure;
+            height: 260px;
+            width: 320px;
+            border-radius: 10px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+        }
+
+        .id img {
+            width: 35px;
+            padding-bottom: 8px;
+        }
+
+        .id label, .id input {
+            width: 90%;
+            text-align: center;
+        }
+
+        .id input {
+            border: 2px solid rgb(178, 177, 177);
+            border-radius: 5px;
+            padding: 4px;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .rem {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            width: 90%;
+        }
+
+        .log {
+            display: flex;
+            justify-content: space-between;
+            width: 90%;
+            align-items: center;
+        }
+
+        .log button {
+            background-color: #9d00ff;
+            color: rgb(242, 236, 236);
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .log a {
+            font-size: 14px;
+            text-decoration: none;
+            color: #000;
+        }
+
+        .id p {
+            text-align: center;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .header {
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        
+        /* Navigation Bar */
+.header {
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.header.scrolled {
+    padding: 10px 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #8a2be2, #ff6b6b);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo i {
+    color: #8a2be2;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    font-weight: 500;
+    position: relative;
+    padding: 5px 2px;
+    transition: all 0.3s ease;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #8a2be2;
+    transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #8a2be2;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Mobile Menu */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #1a1a2e;
+}
+/* Remove bullet points */
+.nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none; /* Ensures no dots appear */
+    padding: 0;
+    margin: 0;
+}
+
+/* Nav links styling */
+.nav-links a {
+    font-weight: 500;
+    position: relative;
+    padding: 5px 2px;
+    transition: all 0.3s ease;
+    text-decoration: none; /* Remove default underline */
+    color: #000; /* Default color */
+}
+
+/* Underline effect on hover */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 50%;
+    background-color: #8a2be2;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-links a:hover {
+    color: #8a2be2;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+/* Move ProFit logo 25px to the right */
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #8a2be2, #ff6b6b);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 25px; /* Moves the logo to the right */
+}
+
+/* Move Home and other nav links 10px to the left */
+.nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+    margin-left: -10px; /* Moves the navigation links to the left */
+}
+
+/* Nav links styling */
+.nav-links a {
+    font-weight: 500;
+    position: relative;
+    padding: 5px 2px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: #000;
+}
+
+/* Underline effect on hover */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 50%;
+    background-color: #8a2be2;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-links a:hover {
+    color: #8a2be2;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: block;
+    }
+    .nav-links {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        padding: 20px;
+        gap: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        transform: translateY(-150%);
+        transition: all 0.3s ease;
+        z-index: 999;
+    }
+    .nav-links.active {
+        transform: translateY(0);
+    }
+    /* Navigation Bar */
+.header {
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.header.scrolled {
+    padding: 10px 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #8a2be2, #ff6b6b);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo i {
+    color: #8a2be2;
+}
+
+/* Remove bullet points */
+.nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none; /* This removes the dots */
+}
+
+.nav-links a {
+    font-weight: 500;
+    position: relative;
+    padding: 5px 2px;
+    transition: all 0.3s ease;
+    text-decoration: none; /* Remove default underline */
+}
+
+/* Underline effect on hover */
+.nav-links a:hover {
+    color: #8a2be2;
+    text-decoration: underline;
+}
+
+/* Mobile Menu */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #1a1a2e;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: block;
+    }
+    .nav-links {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        padding: 20px;
+        gap: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        transform: translateY(-150%);
+        transition: all 0.3s ease;
+        z-index: 999;
+    }
+    .nav-links.active {
+        transform: translateY(0);
+    }
+}
+
+}
+
+        @media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        padding: 20px;
+        gap: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        transform: translateY(-150%);
+        transition: all 0.3s ease;
+        z-index: 999;
+    }
+
+    .nav-links.active {
+        transform: translateY(0);
+    }
+ }
+
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+            const navLinks = document.querySelector(".nav-links");
+    
+            mobileMenuBtn.addEventListener("click", function () {
+                navLinks.classList.toggle("active");
+            });
+    
+            window.addEventListener("scroll", function () {
+                const header = document.getElementById("header");
+                if (window.scrollY > 50) {
+                    header.classList.add("scrolled");
+                } else {
+                    header.classList.remove("scrolled");
+                }
+            });
+        });
+    </script>
+    
+</body>
+</html>
